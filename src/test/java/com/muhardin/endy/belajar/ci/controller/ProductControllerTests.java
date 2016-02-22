@@ -131,6 +131,15 @@ public class ProductControllerTests {
                 .body("id", equalTo("abc123"))
                 .body("code", equalTo("PX-009"))
                 .body("name", equalTo("Product 909"));
+        
+        // test id salah
+        given()
+                .body(p)
+                .contentType(ContentType.JSON)
+                .when()
+                .put(BASE_URL+"/xyz456")
+                .then()
+                .statusCode(404);
     }
 
     @Test
@@ -140,6 +149,11 @@ public class ProductControllerTests {
                 .statusCode(200);
 
         get(BASE_URL+"/abc123")
+                .then()
+                .statusCode(404);
+        
+        // test id salah
+        delete(BASE_URL+"/xyz123")
                 .then()
                 .statusCode(404);
     }
