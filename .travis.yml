@@ -12,4 +12,4 @@ before_install:
     - mysql -uroot -e "create database belajar"
 
 after_success:
-    - mvn clean test jacoco:report coveralls:report
+    - mvn jacoco:report coveralls:report
