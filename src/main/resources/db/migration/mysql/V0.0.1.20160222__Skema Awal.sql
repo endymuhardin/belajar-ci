@@ -5,3 +5,6 @@ create table product (
     name varchar(255) not null,
     price decimal(19,2) not null
 ) Engine=InnoDB;
+
+insert into product (id, code, name, price)
+values ('p001', 'P-001', 'Product 001', 101001.01);
