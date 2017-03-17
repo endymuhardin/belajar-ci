@@ -6,3 +6,7 @@
 
 # Maven Ignore #
 target
+
+# Idea Ignore
+.idea
+*.iml
