@@ -1,0 +1,10 @@
+[Unit]
+Description=belajarci
+After=syslog.target
+[Service]
+User=artivisi
+ExecStart=/home/artivisi/belajar-ci.jar
+SuccessExitStatus=143
+Environment=SPRING_PROFILES_ACTIVE=postgresql
+[Install]
+WantedBy=multi-user.target
