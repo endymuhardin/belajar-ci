@@ -13,6 +13,6 @@ deploy:
   provider: heroku
   api_key:
     secure: LjvHnOSNJYfs3Qk8nhh797eegbsOXfCXyKeQWww4XtIv+qJ0bMoY3AOpJbqi3XrUSrajzzL4y9vQF9rnmwF6TZ2InZA0p0Bpf+QCCARIXp23Q9WSc9YeZTFuwBagKzarMOnNlM1OAdUZpWRf4mu5EfJAL/WrxYASmhu9VdDZa6jUhPQi2IrMPMD8Jjisu6N4cIgCb7zFfePQipSJ4SHAJzamBFlcc+7+IdHNqVykSIyKVW+KqTIXOtUjv/d6VMHEWQ7+A4/kVJ9qwcRLezHYFsI/9QRTqwwovjYwjI7GGnpM7IK3p2E/xKE2Us+a8JIs1SxV0K9JvEsVXvJp8SSfGflMb5gTUslJeXceOCJT/Y9d3VVlp2CA780fiWYQvYSVj2Qxx6mAuh342nojtb2E0AIlYJ8OijDKZw0rb6g47R8dRAcmTvNWnEquTTsmNyBIajPq+ThGl/hJXlS8uxr4c3lpTjoRMVx2rws8qH/Wy+lHKCQmaf/yna4Aclkou9Ed4XV1T1eqOGPJWBKwMeL5KIxCDvUUvTon6nQwwoCJysvkUfzipxBt1oSR7uYv2NcQ+YZYEE2gwJzY4+bLVFKNjhWYg7xnD0rPy24UOLdhMA4/26ehAWSh7s8Y4iptnNFOnmtVP7qxOkaTTon1CRmX642B5YZn10AZW/aKKpzeCls=
-  app: aplikasibelajar
+  app: belajar-ci-endy
   on:
     repo: endymuhardin/belajar-ci
