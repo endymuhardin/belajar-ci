@@ -1,14 +1,17 @@
-dbserver-mysql:
-  image: mysql:latest
-  environment:
-    - MYSQL_ROOT_PASSWORD=admin
-    - MYSQL_DATABASE=belajar
-    - MYSQL_USER=belajar
-    - MYSQL_PASSWORD=java
+version: "2.1"
 
-belajarci-app:
-  image: endymuhardin/belajar-ci
-  links:
-    - dbserver-mysql:mysql
-  ports:
-    - 80:8080
+services:
+  dbmysql:
+    image: mysql:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=admin
+      - MYSQL_DATABASE=belajar
+      - MYSQL_USER=belajar
+      - MYSQL_PASSWORD=java
+
+  belajarci-app:
+    image: endymuhardin/belajar-ci
+    depends_on:
+      - dbmysql
+    ports:
+      - 80:8080

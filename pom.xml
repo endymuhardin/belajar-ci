@@ -102,19 +102,25 @@
                 <version>4.1.0</version>
             </plugin>
             <plugin>
-                <groupId>com.spotify</groupId>
+                <groupId>io.fabric8</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
-                <version>0.4.13</version>
+                <version>0.20.0</version>
                 <configuration>
-                    <imageName>endymuhardin/${project.artifactId}</imageName>
-                    <dockerDirectory>src/main/docker</dockerDirectory>
-                    <resources>
-                        <resource>
-                            <targetPath>/</targetPath>
-                            <directory>${project.build.directory}</directory>
-                            <include>${project.build.finalName}.jar</include>
-                        </resource>
-                    </resources>
+                    <verbose>true</verbose>
+                    <machine>
+                        <name>docker-ocean</name>
+                    </machine>
+                    <images>
+                        <image>
+                            <name>endymuhardin/${project.artifactId}</name>
+                            <build>
+                                <dockerFile>Dockerfile</dockerFile>
+                                <assembly>
+                                    <descriptorRef>artifact</descriptorRef>
+                                </assembly>
+                            </build>
+                        </image>
+                    </images>
                 </configuration>
             </plugin>
             <plugin>
