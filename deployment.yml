@@ -1,0 +1,28 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: belajar-ci
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: belajar-ci
+    spec:
+      containers:
+      - name: mysql
+        image: mysql:latest
+        env:
+          - name : MYSQL_RANDOM_ROOT_PASSWORD
+            value: 'yes'
+          - name: MYSQL_DATABASE
+            value: 'belajar'
+          - name: MYSQL_USER
+            value: 'belajar'
+          - name: MYSQL_PASSWORD
+            value: 'java'
+      - name: belajar-ci
+        image: endymuhardin/belajar-ci
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
