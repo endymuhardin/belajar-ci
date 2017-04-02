@@ -6,6 +6,7 @@
 Teknologi yang digunakan
 
 * Maven
+* MySQL
 * Spring Boot
 
   * Hibernate
@@ -13,26 +14,34 @@ Teknologi yang digunakan
   * Spring Test
   * Spring MVC
 
-* MySQL
-* Travis CI
-* Jenkins
+* Continuous Integration
+
+    * Travis CI
+    * Jenkins
+    * Gitlab CI
 
 
 ## Build Docker Image ##
+
+Agar bisa menggunakan docker, kita install dulu `docker` dan `docker-machine`. Instalasinya bisa dibaca di [artikel ini](https://docs.docker.com/engine/installation/).
 
 1. Siapkan dulu docker-machine. Pada contoh ini kita akan menggunakan Digital Ocean supaya hemat bandwidth.
 
         docker-machine create --driver digitalocean --digitalocean-size 1gb --digitalocean-access-token yaddayaddayadda docker-ocean
 
-2. Build docker engine
+2. Update environment variable supaya perintah docker kita diarahkan ke droplet DO kita tadi
 
-        mvn clean package docker:build -DskipTests 
+        eval $(docker-machine env docker-ocean)
 
-3. Jalankan aplikasi dengan docker-compose
+3. Build docker container untuk aplikasi kita
+
+        docker build -t endymuhardin/belajar-ci . 
+
+4. Jalankan aplikasi dengan docker-compose
 
         docker-compose up
 
-4. Lihat IP address docker engine kita dengan perintah berikut
+5. Lihat IP address docker engine kita dengan perintah berikut
 
         docker-machine env docker-ocean
     
