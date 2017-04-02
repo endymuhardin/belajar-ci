@@ -1,3 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: belajar-ci-lb
+spec:
+  selector:
+      app: belajar-ci
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 8080
+
+---
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
@@ -24,5 +37,3 @@ spec:
       - name: belajar-ci
         image: endymuhardin/belajar-ci
         imagePullPolicy: Always
-        ports:
-        - containerPort: 8080
