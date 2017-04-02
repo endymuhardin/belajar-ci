@@ -26,6 +26,11 @@ spec:
       containers:
       - name: mysql
         image: mysql:latest
+        args:
+          - "--ignore-db-dir=lost+found"
+        volumeMounts:
+          - name: persistent-storage
+            mountPath: /var/lib/mysql
         env:
           - name : MYSQL_RANDOM_ROOT_PASSWORD
             value: 'yes'
@@ -35,3 +40,7 @@ spec:
             value: 'belajar'
           - name: MYSQL_PASSWORD
             value: 'java'
+      volumes:
+        - name: persistent-storage
+          persistentVolumeClaim:
+            claimName: belajar-ci-pv-claim
