@@ -1,0 +1,34 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: belajar-ci-app-service
+  labels:
+    app: belajar-ci
+spec:
+  selector:
+      app: belajar-ci
+      tier: web
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 8080
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: belajar-ci-app
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: belajar-ci
+        tier: web
+    spec:
+      containers:
+      - name: belajar-ci
+        image: endymuhardin/belajar-ci
+        imagePullPolicy: Always
+        env:
+          - name: SPRING_DATASOURCE_URL
+            value: 'jdbc:mysql://belajar-ci-db-service/belajar'

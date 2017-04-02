@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: belajar-ci-db-service
+  labels:
+    app: belajar-ci
+spec:
+  selector:
+      app: belajar-ci
+      tier: db
+  ports:
+  - port: 3306
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: belajar-ci-db
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: belajar-ci
+        tier: db
+    spec:
+      containers:
+      - name: mysql
+        image: mysql:latest
+        env:
+          - name : MYSQL_RANDOM_ROOT_PASSWORD
+            value: 'yes'
+          - name: MYSQL_DATABASE
+            value: 'belajar'
+          - name: MYSQL_USER
+            value: 'belajar'
+          - name: MYSQL_PASSWORD
+            value: 'java'

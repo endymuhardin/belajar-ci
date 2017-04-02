@@ -43,5 +43,5 @@ k8s-deploy:
   - gcloud config set project belajar-ci
   - gcloud config set container/use_client_certificate True
   - gcloud container clusters get-credentials belajar-ci
-  - kubectl apply -f deployment.yml
+  - kubectl apply -f k8s
   - rm key.json
