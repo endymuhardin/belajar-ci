@@ -11,6 +11,8 @@ services:
 
   belajarci-app:
     image: endymuhardin/belajar-ci
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
     depends_on:
       - mysql
     ports:
