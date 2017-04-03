@@ -8,6 +8,8 @@ services:
       - MYSQL_DATABASE=belajar
       - MYSQL_USER=belajar
       - MYSQL_PASSWORD=java
+    volumes:
+      - /opt/data:/var/lib/mysql
 
   belajarci-app:
     image: endymuhardin/belajar-ci
