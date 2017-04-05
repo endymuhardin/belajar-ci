@@ -28,7 +28,8 @@ maven-build:
 docker-build:
   stage: package
   script:
-    - docker build -t $CI_PROJECT_PATH .
+    - docker build -t $CI_PROJECT_PATH:$CI_COMMIT_SHA .
+    - docker tag $CI_PROJECT_PATH:$CI_COMMIT_SHA $CI_PROJECT_PATH:latest
     - docker login -u endymuhardin -p $DOCKERHUB_PASSWORD
     - docker push $CI_PROJECT_PATH
     - docker logout
@@ -44,4 +45,5 @@ k8s-deploy:
   - gcloud config set container/use_client_certificate True
   - gcloud container clusters get-credentials belajar-ci
   - kubectl apply -f k8s
+  - kubectl set image deploy/belajar-ci-app belajar-ci=endymuhardin/belajar-ci:latest
   - rm key.json
