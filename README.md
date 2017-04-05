@@ -70,3 +70,13 @@ Agar bisa menggunakan docker, kita install dulu `docker` dan `docker-machine`. I
           "size" : 20,
           "number" : 0
         }
+
+## CI dengan Travis ##
+
+* History hasil build bisa dilihat [di sini](https://travis-ci.org/endymuhardin/belajar-ci)
+* Hasil deployment Heroku bisa diakses [di sini](https://belajar-ci-endy.herokuapp.com)
+
+## CI dengan Gitlab ##
+
+* History hasil build bisa dilihat [di sini](https://gitlab.com/endymuhardin/belajar-ci/pipelines)
+* Hasil deployment Google Container Engine bisa diakses [di sini](http://104.155.193.131)
