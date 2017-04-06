@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 @RestController
 @RequestMapping("/api")
@@ -22,7 +22,7 @@ public class HomeController {
 
     @GetMapping("/host")
     public Map<String, Object> hostInfo(HttpServletRequest request){
-        Map<String, Object> info = new HashMap<>();
+        Map<String, Object> info = new TreeMap<>();
         info.put("Hostname", request.getLocalName());
         info.put("IP Address Local", request.getLocalAddr());
         info.put("Port Local", request.getLocalPort());
@@ -37,7 +37,7 @@ public class HomeController {
 
     @GetMapping("/session")
     public Map<String, Object> getSessionVariables(HttpSession session){
-        Map<String, Object> sessionVariables = new HashMap<>();
+        Map<String, Object> sessionVariables = new TreeMap<>();
         Collections.list(session.getAttributeNames())
                 .forEach(name -> {
                     sessionVariables.put(name, session.getAttribute(name));
