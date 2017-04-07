@@ -15,6 +15,7 @@
 
             var urlHostInfo = "/api/host";
             var urlSessionInfo = "/api/session";
+            var urlFileInfo = "/api/file";
 
             Vue.use(VueMaterial);
             new Vue({
@@ -23,7 +24,9 @@
                     hostData : {},
                     sessionData : {},
                     fileData : {},
-                    submitData: {}
+                    submitData: {},
+                    uploadfile: null,
+                    uploadOutput: null
                 },
                 created: function(){
                     this.reloadData();
@@ -47,9 +50,19 @@
                             })
                             .catch(e => console.error(e));
                     },
+                    getFileInfo : function(){
+                        console.log("Mengambil info file");
+                        axios.get(urlFileInfo)
+                            .then(response => {
+                                console.log("Response : ", response);
+                                this.fileData = response.data;
+                            })
+                            .catch(e => console.error(e));
+                    },
                     reloadData : function(){
                         this.getHostInfo();
                         this.getSessionInfo();
+                        this.getFileInfo();
                     },
                     openDialog : function(ref) {
                         this.$refs[ref].open();
@@ -79,6 +92,31 @@
                                 this.getSessionInfo();
                             })
                             .catch(err => console.error(err));
+                    },
+                    upload : function(){
+                        var config = {
+                            onUploadProgress: function(progressEvent) {
+                                var percentCompleted = Math.round( (progressEvent.loaded * 100) / progressEvent.total );
+                                this.uploadOutput = percentCompleted + "%";
+                            }
+                        };
+                        var data = new FormData();
+                        data.append('uploadfile', document.getElementById('uploadfile').files[0]);
+                        axios.post(urlFileInfo, data, config)
+                            .then(res => {
+                                this.getFileInfo();
+                                this.uploadOutput = res.data;
+                                document.getElementById('uploadfile').value = null;
+                            })
+                            .catch(function (err) {
+                                this.uploadOutput = err.message;
+                            });
+                    },
+                    deleteFile : function(file){
+                        axios.delete(urlFileInfo + "/" + file.nama)
+                            .then(() => {
+                                this.getFileInfo();
+                            });
                     }
                 }
             })
@@ -165,7 +203,35 @@
 
                 <md-tab id="books" md-label="File">
                     <h3>File yang diupload harus tetap ada walaupun diarahkan ke host manapun.</h3>
-                    <p><em>under construction</em></p>
+                    <form role="form" class="form" onsubmit="return false;">
+                        <input id="uploadfile" type="file"/>
+                        <md-button class="md-primary" @click.native="upload">Upload</md-button>
+                    </form>
+                    <div>{{uploadOutput}}</div>
+                    <md-table >
+                        <md-table-header>
+                            <md-table-row>
+                                <md-table-head>Nama File</md-table-head>
+                                <md-table-head>Ukuran</md-table-head>
+                                <md-table-head>&nbsp;</md-table-head>
+                            </md-table-row>
+                        </md-table-header>
+
+                        <md-table-body>
+                            <md-table-row v-for="f in fileData">
+                                <md-table-cell>{{f.nama}}</md-table-cell>
+                                <md-table-cell>{{f.ukuran}}</md-table-cell>
+                                <md-table-cell>
+                                    <md-button class="md-mini" v-bind:href="'/api/file/'+f.nama">
+                                        <md-icon>get_app</md-icon>
+                                    </md-button>
+                                    <md-button class="md-mini" @click.native="deleteFile(f)">
+                                        <md-icon>delete</md-icon>
+                                    </md-button>
+                                </md-table-cell>
+                            </md-table-row>
+                        </md-table-body>
+                    </md-table>
                 </md-tab>
             </md-tabs>
         </md-card-content>

@@ -10,3 +10,8 @@ target
 # Idea Ignore
 .idea
 *.iml
+
+# App Ignore
+logs
+userfiles
+
