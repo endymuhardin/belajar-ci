@@ -2,9 +2,12 @@
 Description=belajarci
 After=syslog.target
 [Service]
-User=artivisi
-ExecStart=/home/artivisi/belajar-ci.jar
+User=belajar
+ExecStart=/home/belajar/belajar-ci.jar
 SuccessExitStatus=143
 Environment=SPRING_PROFILES_ACTIVE=postgresql
+Environment=SPRING_DATASOURCE_URL=jdbc:postgresql://localhost/belajar
+Environment=SPRING_DATASOURCE_USERNAME=belajarci
+Environment=SPRING_DATASOURCE_PASSWORD=123456
 [Install]
 WantedBy=multi-user.target
