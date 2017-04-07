@@ -14,7 +14,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: belajar-ci-pv-claim
+  name: belajar-ci-pv-claim-db
   labels:
     app: belajar-ci
 spec:
@@ -22,7 +22,7 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 200Gi
+      storage: 201Gi
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
@@ -42,7 +42,7 @@ spec:
         args:
           - "--ignore-db-dir=lost+found"
         volumeMounts:
-          - name: persistent-storage
+          - name: persistent-storage-db
             mountPath: /var/lib/mysql
         env:
           - name : MYSQL_RANDOM_ROOT_PASSWORD
@@ -54,6 +54,6 @@ spec:
           - name: MYSQL_PASSWORD
             value: 'java'
       volumes:
-        - name: persistent-storage
+        - name: persistent-storage-db
           persistentVolumeClaim:
-            claimName: belajar-ci-pv-claim
+            claimName: belajar-ci-pv-claim-db
