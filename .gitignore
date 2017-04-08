@@ -15,3 +15,6 @@ target
 logs
 userfiles
 
+# Atom Ignore
+effective.pom
+.atom-classpath
