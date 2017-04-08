@@ -24,14 +24,14 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 202Gi
+      storage: 10Gi
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: belajar-ci-app
 spec:
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       labels:

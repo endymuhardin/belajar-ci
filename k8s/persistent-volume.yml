@@ -1,25 +1,25 @@
-# gcloud compute disks create --size=201GB --zone=asia-east1-a belajar-ci-pv-1
+# gcloud compute disks create --size=10GB --zone=asia-east1-a belajar-ci-pv-1
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: belajar-ci-pv-db
+  name: belajar-ci-pv-1
 spec:
   capacity:
-    storage: 201Gi
+    storage: 10Gi
   accessModes:
     - ReadWriteOnce
   gcePersistentDisk:
     pdName: belajar-ci-pv-1
     fsType: ext4
-
-# gcloud compute disks create --size=202GB --zone=asia-east1-a belajar-ci-pv-2
+---
+# gcloud compute disks create --size=10GB --zone=asia-east1-a belajar-ci-pv-2
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: belajar-ci-pv-app
+  name: belajar-ci-pv-2
 spec:
   capacity:
-    storage: 202Gi
+    storage: 10Gi
   accessModes:
     - ReadWriteOnce
   gcePersistentDisk:
