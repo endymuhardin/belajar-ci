@@ -60,7 +60,7 @@ public class FileController {
 
     }
 
-    @DeleteMapping("/file/{nama}")
+    @DeleteMapping("/file/{nama:.+}")
     public void delete(@PathVariable String nama){
         fileService.hapus(nama);
     }
