@@ -20,18 +20,18 @@ import java.util.TreeMap;
 public class GoogleCloudStorage implements FileService {
 
     private static final String BUCKET_NAME = "belajar-ci";
-    private Storage storage = StorageOptions.getDefaultInstance().getService();
+    private Storage storage;
 
     @Override
     public void simpan(String nama, InputStream contentStream) {
-        storage.create(BlobInfo.newBuilder(BUCKET_NAME, nama).build(),
+        getStorage().create(BlobInfo.newBuilder(BUCKET_NAME, nama).build(),
                 contentStream);
     }
 
     @Override
     public List<Map<String, Object>> daftarFile() {
         List<Map<String, Object>> hasil = new ArrayList<>();
-        Page<Blob> daftarFile = storage.list(BUCKET_NAME, Storage.BlobListOption.currentDirectory());
+        Page<Blob> daftarFile = getStorage().list(BUCKET_NAME, Storage.BlobListOption.currentDirectory());
         daftarFile.getValues().forEach( blob -> {
             Map<String, Object> fileInfo = new TreeMap<>();
             fileInfo.put("nama", blob.getName());
@@ -43,12 +43,19 @@ public class GoogleCloudStorage implements FileService {
 
     @Override
     public void hapus(String nama) {
-        storage.delete(BlobId.of(BUCKET_NAME, nama));
+        getStorage().delete(BlobId.of(BUCKET_NAME, nama));
     }
 
     @Override
     public InputStream ambil(String nama) {
         return new ByteArrayInputStream(
-                storage.readAllBytes(BlobId.of(BUCKET_NAME, nama)));
+                getStorage().readAllBytes(BlobId.of(BUCKET_NAME, nama)));
+    }
+
+    private Storage getStorage(){
+        if(storage == null){
+            storage = StorageOptions.getDefaultInstance().getService();
+        }
+        return storage;
     }
 }
