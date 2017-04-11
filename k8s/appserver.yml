@@ -48,8 +48,8 @@ spec:
         env:
           - name: SPRING_DATASOURCE_URL
             value: 'jdbc:mysql://belajar-ci-db-service/belajar'
-          - name: UPLOAD_LOCATION
-            value: /var/lib/belajar-ci
+          - name: SPRING_PROFILES_ACTIVE
+            value: gcloudstorage
       volumes:
         - name: persistent-storage-app
           persistentVolumeClaim:

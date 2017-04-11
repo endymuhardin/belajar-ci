@@ -6,7 +6,7 @@ services:
 
 variables:
   DOCKER_DRIVER: overlay
-  SPRING_PROFILES_ACTIVE: docker
+  SPRING_PROFILES_ACTIVE: docker,localstorage
   MYSQL_ROOT_PASSWORD: admin
   MYSQL_DATABASE: belajar
   MYSQL_USER: belajar
@@ -28,11 +28,13 @@ maven-build:
 docker-build:
   stage: package
   script:
+    - echo "$GCLOUD_CREDENTIAL" > gcloud-credential.json
     - docker build -t $CI_PROJECT_PATH:$CI_COMMIT_SHA .
     - docker tag $CI_PROJECT_PATH:$CI_COMMIT_SHA $CI_PROJECT_PATH:latest
     - docker login -u endymuhardin -p $DOCKERHUB_PASSWORD
     - docker push $CI_PROJECT_PATH
     - docker logout
+    - rm gcloud-credential.json
 
 k8s-deploy:
   image: google/cloud-sdk
