@@ -13,25 +13,12 @@ spec:
   - port: 80
     targetPort: 8080
 ---
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: belajar-ci-pv-claim-app
-  labels:
-    app: belajar-ci
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 10Gi
----
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: belajar-ci-app
 spec:
-  replicas: 1
+  replicas: 3
   template:
     metadata:
       labels:
@@ -42,15 +29,8 @@ spec:
       - name: belajar-ci
         image: endymuhardin/belajar-ci
         imagePullPolicy: Always
-        volumeMounts:
-          - name: persistent-storage-app
-            mountPath: /var/lib/belajar-ci
         env:
           - name: SPRING_DATASOURCE_URL
             value: 'jdbc:mysql://belajar-ci-db-service/belajar'
           - name: SPRING_PROFILES_ACTIVE
             value: gcloudstorage
-      volumes:
-        - name: persistent-storage-app
-          persistentVolumeClaim:
-            claimName: belajar-ci-pv-claim-app
