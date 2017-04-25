@@ -12,6 +12,10 @@ variables:
   MYSQL_USER: belajar
   MYSQL_PASSWORD: java
 
+cache:
+  paths:
+    - .m2/repository
+
 stages:
   - build
   - package
@@ -20,7 +24,7 @@ stages:
 maven-build:
   image: maven:3-jdk-8
   stage: build
-  script: mvn package -B
+  script: mvn package -B -Dmaven.repo.local=.m2/repository
   artifacts:
     paths:
       - target/*.jar
